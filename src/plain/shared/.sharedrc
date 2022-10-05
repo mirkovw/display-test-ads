@@ -1,6 +1,7 @@
 {
   "settings": {
     "browserSupport": ["> 1%", "not ie 11"],
+    "bundleName": "ad_${settings.size.width}x${settings.size.height}",
     "optimizations": {
       "css": true,
       "image": true,
