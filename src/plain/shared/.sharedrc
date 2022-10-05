@@ -1,12 +1,15 @@
 {
   "settings": {
     "browserSupport": ["> 1%", "not ie 11"],
-    "bundleName": "ad_${settings.size.width}x${settings.size.height}",
+    "bundleName": "${content.bundleName}_${settings.size.width}x${settings.size.height}",
     "optimizations": {
       "css": true,
       "image": true,
       "html": true,
       "js": true
+    },
+    "contentSource": {
+      "url": "https://docs.google.com/spreadsheets/d/1f-BxXd5-yWXrHwZZHJHmfRZHG8vqtSsQ8V0AUjPQXeA/edit#gid=0"
     },
     "useOriginalFileNames": false,
     "entry": {
