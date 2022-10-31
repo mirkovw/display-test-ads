@@ -1,10 +1,10 @@
 import fitText from '@mediamonks/display-temple/util/fitText';
 import politeLoadImages from '@mediamonks/display-temple/util/politeLoadImages';
+import enableAdsRecorder from '@mediamonks/display-temple/util/enableRecorder';
+
 const WebFont = require('webfontloader');
 
-
 export default class Banner {
-
   constructor(config) {
     // add required components here
     this.config = config;
@@ -12,21 +12,21 @@ export default class Banner {
 
   // fontLoading module for the lazy loading of fonts - default is openSans
   async loadFonts() {
-    let webFontConfig = {}
+    let webFontConfig = {};
 
     webFontConfig = {
       custom: {
         families: this.config.content.defaultFonts,
-        urls: [this.config.content.defaultFontUrl]
-      }
-    }
+        urls: [this.config.content.defaultFontUrl],
+      },
+    };
 
     webFontConfig.fontactive = (e) => {
       // console.log(`${e}, was detected. The document is ready and font loading is active`)
-    }
+    };
 
-    const prom = new Promise(resolve => {
-      webFontConfig.active = resolve
+    const prom = new Promise((resolve) => {
+      webFontConfig.active = resolve;
     });
 
     WebFont.load(webFontConfig);
@@ -35,7 +35,7 @@ export default class Banner {
 
   async init() {
     this.banner = document.body.querySelector('.banner');
-    await politeLoadImages(this.banner)
+    await politeLoadImages(this.banner);
     await this.loadFonts(); //need to wait until fonts are loaded. Otherwise we will run fitText on the wrong fonts
 
     const title = document.body.querySelector('.title');
@@ -49,11 +49,14 @@ export default class Banner {
     this.domMainExit.addEventListener('mouseout', this.handleRollOut);
   }
 
-  setAnimation(animation){
+  setAnimation(animation) {
     this.animation = animation;
     //creates new timeline and pauses it
+
     this.animation.getTimeline().paused(true);
     // this.animation.getTimeline().eventCallback('onComplete', this.handleAnimationComplete);
+
+    enableAdsRecorder(this.animation.getTimeline(), this.config);
   }
 
   handleExit = () => {
@@ -71,19 +74,14 @@ export default class Banner {
   /**
    * When mouse rolls over unit.
    */
-  handleRollOver = () => {
-
-  };
+  handleRollOver = () => {};
 
   /**
    * When mouse rolls out unit.
    */
-  handleRollOut = () => {
-
-  };
+  handleRollOut = () => {};
 
   start() {
     this.animation.play();
   }
 }
-
